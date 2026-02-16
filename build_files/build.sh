@@ -12,6 +12,12 @@ echo "Configuring External Repositories..."
 # rpm --import https://pkg.cloudflareclient.com/pubkey.gpg
 # curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
 
+echo ":: Importing GPG Keys..."
+rpm --import https://pkg.cloudflareclient.com/pubkey.gpg
+rpm --import https://packages.microsoft.com/keys/microsoft.asc
+curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
+sed -i 's/$releasever/8/g' /etc/yum.repos.d/cloudflare-warp.repo
+
 # Enable COPRs
 dnf5 -y copr enable solopasha/hyprland
 dnf5 -y copr enable atim/starship
@@ -44,7 +50,7 @@ dnf5 makecache
 
 # Core System & Shell Utilities
 SYSTEM_PACKAGES=(
-	# cloudflare-warp
+	cloudflare-warp
     bat
     btop
     fastfetch
