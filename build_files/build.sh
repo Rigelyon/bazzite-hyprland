@@ -143,8 +143,6 @@ ln -sf /usr/bin/eza /usr/bin/exa
 
 ### 5. Post-Install Configuration
 
-systemctl enable warp-svc
-
 echo ":: configuring sassc link..."
 ln -sf /usr/bin/sassc /usr/bin/sass
 
