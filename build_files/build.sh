@@ -105,7 +105,6 @@ APP_PACKAGES=(
     antigravity
 )
 
-# ... (FONT_PACKAGES, DEV_PACKAGES, QT_PACKAGES tetap sama seperti sebelumnya)
 FONT_PACKAGES=(
     fontawesome-fonts-all
     google-noto-color-emoji-fonts
@@ -114,20 +113,9 @@ FONT_PACKAGES=(
 
 DEV_PACKAGES=(
     git
-    gcc-c++
-    make
     sassc
-    scdoc
-    dash
-    desktop-file-utils
     xdg-utils
-    python3-devel
-    python3-pip
-    python-build
-    python-installer
-    hatch
-    python-hatch-vcs
-    R-rsvg # (Pastikan ini librsvg2-tools jika ingin command line tool)
+    R-rsvg
 )
 
 ### 3. Install Packages
