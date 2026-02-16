@@ -138,14 +138,6 @@ ln -sf /usr/bin/eza /usr/bin/exa
 echo ":: configuring sassc link..."
 ln -sf /usr/bin/sassc /usr/bin/sass
 
-echo ":: installing xdg-terminal-exec from source..."
-git clone --depth=1 https://github.com/Vladimir-csp/xdg-terminal-exec.git /tmp/xdg-terminal-exec
-pushd /tmp/xdg-terminal-exec
-make
-install -Dm755 xdg-terminal-exec /usr/bin/xdg-terminal-exec
-install -Dm644 xdg-terminal-exec.1 /usr/share/man/man1/xdg-terminal-exec.1
-popd
-rm -rf /tmp/xdg-terminal-exec
 
 echo ":: installing Nerd Fonts (JetBrainsMono)..."
 FONT_DIR="/usr/share/fonts/JetBrainsMonoNerdFont"
