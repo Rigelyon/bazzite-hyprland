@@ -24,7 +24,7 @@ gpgkey=https://packages.microsoft.com/keys/microsoft.asc
 EOF
 
 # Add Antigravity Repository
-sudo tee /etc/yum.repos.d/antigravity.repo << EOL
+tee /etc/yum.repos.d/antigravity.repo << EOL
 [antigravity-rpm]
 name=Antigravity RPM Repository
 baseurl=https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
