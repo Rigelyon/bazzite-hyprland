@@ -12,7 +12,6 @@ dnf5 -y copr enable atim/starship
 dnf5 -y copr enable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr enable lihaohong/yazi
 dnf5 -y copr enable dejan/lazygit
-dnf5 -y copr enable yorickpeterse/zed
 
 # Add Visual Studio Code Repository
 cat <<EOF > /etc/yum.repos.d/vscode.repo
@@ -104,7 +103,6 @@ APP_PACKAGES=(
     libqalculate-devel
     ImageMagick
     code
-    zed
     antigravity
 )
 
@@ -173,7 +171,6 @@ dnf5 -y copr disable atim/starship
 dnf5 -y copr disable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr disable lihaohong/yazi
 dnf5 -y copr disable dejan/lazygit
-dnf5 -y copr disable yorickpeterse/zed
 
 rpm-ostree cleanup -m
 
