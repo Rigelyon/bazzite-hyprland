@@ -5,6 +5,12 @@ set -ouex pipefail
 export PIP_ROOT_USER_ACTION=ignore
 
 ### 1. Enable Repositories (COPR & External)
+echo "Configuring External Repositories..."
+
+# Cloudflare WARP Repo & Key
+# Mengikuti instruksi update key 2025/2026
+rpm --import https://pkg.cloudflareclient.com/pubkey.gpg
+curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
 
 # Enable COPRs
 dnf5 -y copr enable solopasha/hyprland
@@ -38,6 +44,7 @@ dnf5 makecache
 
 # Core System & Shell Utilities
 SYSTEM_PACKAGES=(
+	cloudflare-warp
     bat
     btop
     fastfetch
@@ -66,6 +73,7 @@ SYSTEM_PACKAGES=(
     lm_sensors
     bluez
     bluez-tools
+    stow
 )
 
 # Desktop Environment & Utils
@@ -134,6 +142,8 @@ chmod +x /usr/bin/eza
 ln -sf /usr/bin/eza /usr/bin/exa
 
 ### 5. Post-Install Configuration
+
+systemctl enable warp-svc
 
 echo ":: configuring sassc link..."
 ln -sf /usr/bin/sassc /usr/bin/sass
