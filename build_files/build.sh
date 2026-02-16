@@ -40,7 +40,6 @@ dnf5 makecache
 SYSTEM_PACKAGES=(
     bat
     btop
-    eza
     fastfetch
     fd-find
     fzf
@@ -139,7 +138,14 @@ rpm-ostree install \
     "${FONT_PACKAGES[@]}" \
     "${DEV_PACKAGES[@]}"
 
-### 4. Post-Install Configuration
+### 4. Manual Packages Install
+echo "Installing eza"
+curl -L "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz" | tar xz -C /tmp
+mv /tmp/eza /usr/bin/eza
+chmod +x /usr/bin/eza
+ln -sf /usr/bin/eza /usr/bin/exa
+
+### 5. Post-Install Configuration
 
 echo ":: configuring sassc link..."
 ln -sf /usr/bin/sassc /usr/bin/sass
