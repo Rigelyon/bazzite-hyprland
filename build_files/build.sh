@@ -25,7 +25,7 @@ dnf5 -y copr enable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr enable lihaohong/yazi
 dnf5 -y copr enable dejan/lazygit
 
-sudo curl -sL -o /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo
+curl -sL -o /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo
 
 # Add Visual Studio Code Repository
 cat <<EOF > /etc/yum.repos.d/vscode.repo
