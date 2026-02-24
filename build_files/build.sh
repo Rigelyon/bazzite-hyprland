@@ -25,6 +25,8 @@ dnf5 -y copr enable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr enable lihaohong/yazi
 dnf5 -y copr enable dejan/lazygit
 
+sudo curl -sL -o /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo
+
 # Add Visual Studio Code Repository
 cat <<EOF > /etc/yum.repos.d/vscode.repo
 [code]
@@ -80,6 +82,7 @@ SYSTEM_PACKAGES=(
     bluez
     bluez-tools
     stow
+    lsd
 )
 
 # Desktop Environment & Utils
@@ -100,6 +103,8 @@ DESKTOP_PACKAGES=(
     swappy
     gpu-screen-recorder-ui
     wlogout
+    waybar
+    SwayNotificationCenter
 )
 
 # File Management & GUI Apps
@@ -133,7 +138,7 @@ DEV_PACKAGES=(
 )
 
 REMOTE_RPMS=(
-    "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
+    # "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
 )
 
 
