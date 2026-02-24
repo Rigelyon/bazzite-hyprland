@@ -132,13 +132,19 @@ DEV_PACKAGES=(
     R-rsvg
 )
 
+REMOTE_RPMS=(
+    "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
+)
+
+
 ### 3. Install Packages
 rpm-ostree install \
     "${SYSTEM_PACKAGES[@]}" \
     "${DESKTOP_PACKAGES[@]}" \
     "${APP_PACKAGES[@]}" \
     "${FONT_PACKAGES[@]}" \
-    "${DEV_PACKAGES[@]}"
+    "${DEV_PACKAGES[@]}" \
+    "${REMOTE_RPMS[@]}"
 
 ### 4. Manual Packages Install
 echo "Installing eza"
