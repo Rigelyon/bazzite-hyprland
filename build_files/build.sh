@@ -62,7 +62,6 @@ SYSTEM_PACKAGES=(
     micro
     ripgrep
     starship
-    tmux
     trash-cli
     wget
     zoxide
