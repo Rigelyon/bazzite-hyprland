@@ -47,9 +47,7 @@ gpgcheck=0
 EOL
 
 rpm --import "https://miktex.org/download/key"
-
 FEDORA_VER=$(rpm -E %fedora)
-
 curl -L -o /etc/yum.repos.d/miktex.repo "https://miktex.org/download/fedora/$FEDORA_VER/miktex.repo"
 
 dnf5 makecache
@@ -163,8 +161,6 @@ curl -L "https://github.com/eza-community/eza/releases/latest/download/eza_x86_6
 mv /tmp/eza /usr/bin/eza
 chmod +x /usr/bin/eza
 ln -sf /usr/bin/eza /usr/bin/exa
-
-curl -L http://xrl.us/installperlnix | bash
 
 ### 5. Post-Install Configuration
 
