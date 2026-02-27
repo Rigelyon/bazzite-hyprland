@@ -108,6 +108,7 @@ DESKTOP_PACKAGES=(
     wlogout
     waybar
     SwayNotificationCenter
+    rofi
 )
 
 # File Management & GUI Apps
