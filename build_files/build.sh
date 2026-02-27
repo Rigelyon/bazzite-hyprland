@@ -189,6 +189,13 @@ dnf5 -y copr disable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr disable lihaohong/yazi
 dnf5 -y copr disable dejan/lazygit
 
+sudo sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo
+sudo sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
+sudo sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
+sudo sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/miktex.repo
+
+dnf5 clean all
+dnf5 makecache
 rpm-ostree cleanup -m
 
 ### 6. Systemd Units
