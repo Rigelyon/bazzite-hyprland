@@ -86,6 +86,7 @@ SYSTEM_PACKAGES=(
     bluez-tools
     stow
     lsd
+    wev
 )
 
 # Desktop Environment & Utils
