@@ -7,10 +7,7 @@ export PIP_ROOT_USER_ACTION=ignore
 ### 1. Enable Repositories (COPR & External)
 echo "Configuring External Repositories..."
 
-# Cloudflare WARP Repo & Key
-# Mengikuti instruksi update key 2025/2026
-# rpm --import https://pkg.cloudflareclient.com/pubkey.gpg
-# curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
+curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
 
 # echo ":: Importing GPG Keys..."
 # rpm --import https://pkg.cloudflareclient.com/pubkey.gpg
@@ -56,7 +53,7 @@ dnf5 makecache
 
 # Core System & Shell Utilities
 SYSTEM_PACKAGES=(
-	# cloudflare-warp
+	cloudflare-warp
     bat
     btop
     fastfetch
