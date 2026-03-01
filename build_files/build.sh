@@ -46,10 +46,6 @@ enabled=1
 gpgcheck=0
 EOL
 
-rpm --import "https://miktex.org/download/key"
-FEDORA_VER=$(rpm -E %fedora)
-curl -L -o /etc/yum.repos.d/miktex.repo "https://miktex.org/download/fedora/$FEDORA_VER/miktex.repo"
-
 dnf5 makecache
 
 ### 2. Define Package Lists
@@ -127,7 +123,7 @@ APP_PACKAGES=(
     ImageMagick
     code
     antigravity
-    miktex
+    texlive
     gparted
 )
 
@@ -193,7 +189,6 @@ dnf5 -y copr disable dejan/lazygit
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
-sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/miktex.repo
 
 dnf5 clean all
 dnf5 makecache
