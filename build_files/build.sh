@@ -198,6 +198,7 @@ dnf5 -y copr disable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr disable lihaohong/yazi
 dnf5 -y copr disable dejan/lazygit
 dnf5 -y copr disable dejan/lazydocker
+dnf5 -y copr disable heus-sueh/packages
 
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
