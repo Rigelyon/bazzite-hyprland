@@ -164,7 +164,7 @@ rpm-ostree install \
     "${DEV_PACKAGES[@]}" \
     "${REMOTE_RPMS[@]}"
 
-pip3 --prefix=/usr install gpustat
+# pip3 install gpustat
 
 ### 4. Manual Packages Install
 echo "Installing eza"
