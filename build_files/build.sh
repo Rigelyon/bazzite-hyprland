@@ -87,7 +87,6 @@ SYSTEM_PACKAGES=(
     stow
     lsd
     wev
-    power-profiles-daemon
     wf-recorder
 )
 
