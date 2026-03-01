@@ -26,7 +26,7 @@ dnf5 -y copr enable lihaohong/yazi
 dnf5 -y copr enable dejan/lazygit
 dnf5 -y copr enable atim/lazydocker
 dnf5 -y copr enable heus-sueh/packages
-dnf5 -y copr enable komapro/packages
+dnf5 -y copr enable komapro/lazyssh
 
 dnf5 config-manager --save --setopt=copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
 curl -sL -o /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo
@@ -200,7 +200,7 @@ dnf5 -y copr disable lihaohong/yazi
 dnf5 -y copr disable dejan/lazygit
 dnf5 -y copr disable atim/lazydocker
 dnf5 -y copr disable heus-sueh/packages
-dnf5 -y copr disable komapro/packages
+dnf5 -y copr disable komapro/lazyssh
 
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
