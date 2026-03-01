@@ -19,12 +19,15 @@ echo "Configuring External Repositories..."
 # sed -i 's/$releasever/8/g' /etc/yum.repos.d/cloudflare-warp.repo
 
 # Enable COPRs
-dnf5 -y copr enable solopasha/hyprland
+dnf5 -y copr enable sdegler/hyprland
 dnf5 -y copr enable atim/starship
 dnf5 -y copr enable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr enable lihaohong/yazi
 dnf5 -y copr enable dejan/lazygit
+dnf5 -y copr enable dejan/lazydocker
+dnf5 -y copr enable heus-sueh/packages
 
+dnf5 config-manager --save --setopt=copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
 curl -sL -o /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo
 
 # Add Visual Studio Code Repository
@@ -83,12 +86,17 @@ SYSTEM_PACKAGES=(
     stow
     lsd
     wev
+    power-profiles-daemon
+    wf-recorder
 )
 
 # Desktop Environment & Utils
 DESKTOP_PACKAGES=(
     hyprland
     hyprpicker
+    hyprsunset
+    hyprpanel
+    swww
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
     wl-clipboard
@@ -106,6 +114,7 @@ DESKTOP_PACKAGES=(
     waybar
     SwayNotificationCenter
     rofi
+    aylurs-gtk-shell2
 )
 
 # File Management & GUI Apps
@@ -115,6 +124,7 @@ APP_PACKAGES=(
     file-roller
     yazi
     lazygit
+    lazydocker
     imv
     neovim
     python3-neovim
@@ -154,6 +164,8 @@ rpm-ostree install \
     "${DEV_PACKAGES[@]}" \
     "${REMOTE_RPMS[@]}"
 
+pip3 install gpustat
+
 ### 4. Manual Packages Install
 echo "Installing eza"
 curl -L "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz" | tar xz -C /tmp
@@ -180,11 +192,12 @@ fc-cache -fv
 chmod -R a+r /usr/lib/python*/site-packages/
 
 ### 5. Cleanup
-dnf5 -y copr disable solopasha/hyprland
+dnf5 -y copr disable sdegler/hyprland
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr disable lihaohong/yazi
 dnf5 -y copr disable dejan/lazygit
+dnf5 -y copr disable dejan/lazydocker
 
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
