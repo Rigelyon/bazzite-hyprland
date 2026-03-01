@@ -8,12 +8,6 @@ export PIP_ROOT_USER_ACTION=ignore
 echo "Configuring External Repositories..."
 
 curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
-mkdir /tmp/warp-extract
-dnf download --destdir=/tmp/warp-extract cloudflare-warp
-cd /tmp/warp-extract
-rpm2cpio cloudflare-warp*.rpm | cpio -idmv
-cp -rv usr/* /usr/
-rm -rf /tmp/warp-extract
 
 # echo ":: Importing GPG Keys..."
 # rpm --import https://pkg.cloudflareclient.com/pubkey.gpg
