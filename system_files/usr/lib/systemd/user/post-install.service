@@ -1,0 +1,11 @@
+[Unit]
+Description=Post Install/Update Script for Bazzite
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/post-install.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

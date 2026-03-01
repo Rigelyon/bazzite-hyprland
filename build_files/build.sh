@@ -7,14 +7,6 @@ export PIP_ROOT_USER_ACTION=ignore
 ### 1. Enable Repositories (COPR & External)
 echo "Configuring External Repositories..."
 
-curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
-
-# echo ":: Importing GPG Keys..."
-# rpm --import https://pkg.cloudflareclient.com/pubkey.gpg
-# rpm --import https://packages.microsoft.com/keys/microsoft.asc
-# curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
-# sed -i 's/$releasever/8/g' /etc/yum.repos.d/cloudflare-warp.repo
-
 # Enable COPRs
 dnf5 -y copr enable sdegler/hyprland
 dnf5 -y copr enable atim/starship
@@ -53,7 +45,6 @@ dnf5 makecache
 
 # Core System & Shell Utilities
 SYSTEM_PACKAGES=(
-	# cloudflare-warp
     bat
     btop
     fastfetch
@@ -98,7 +89,6 @@ DESKTOP_PACKAGES=(
     xdg-desktop-portal-gtk
     wl-clipboard
     cliphist
-    foot
     fuzzel
     pavucontrol
     wireplumber
@@ -208,5 +198,7 @@ rpm-ostree cleanup -m
 
 ### 6. Systemd Units
 systemctl enable podman.socket
+systemctl --global enable post-install.service
+chmod +x /usr/bin/post-install.sh
 
 echo "Build script completed successfully."
