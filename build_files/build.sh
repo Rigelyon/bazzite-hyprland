@@ -76,6 +76,7 @@ SYSTEM_PACKAGES=(
     lsd
     wev
     wf-recorder
+    polkit
 )
 
 # Desktop Environment & Utils
@@ -112,6 +113,7 @@ APP_PACKAGES=(
     yazi
     lazygit
     lazydocker
+    lazyssh
     imv
     neovim
     python3-neovim
