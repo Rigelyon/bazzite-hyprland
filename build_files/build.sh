@@ -9,6 +9,7 @@ echo "Configuring External Repositories..."
 
 # Enable COPRs
 dnf5 -y copr enable sdegler/hyprland
+dnf5 -y copr enable errornointernet/quickshell
 dnf5 -y copr enable atim/starship
 dnf5 -y copr enable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr enable lihaohong/yazi
@@ -137,6 +138,16 @@ DEV_PACKAGES=(
     sassc
     xdg-utils
     R-rsvg
+    qt6-qtbase
+    qt6-qtdeclarative
+    qt6-qtsvg
+    qt6-qt5compat
+    qt6-qtmultimedia
+    qt6-qtimageformats
+    qt6-qtbase-devel
+    qt6-qtdeclarative-devel
+    qt6-qtsvg-devel
+    qt6-qt5compat-devel
 )
 
 REMOTE_RPMS=(
@@ -182,6 +193,7 @@ chmod -R a+r /usr/lib/python*/site-packages/
 
 ### 5. Cleanup
 dnf5 -y copr disable sdegler/hyprland
+dnf5 -y copr disable errornointernet/quickshell
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable brycensranch/gpu-screen-recorder-git
 dnf5 -y copr disable lihaohong/yazi
