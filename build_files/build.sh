@@ -86,6 +86,7 @@ DESKTOP_PACKAGES=(
     hyprpicker
     hyprsunset
     hyprpanel
+    quickshell
     swww
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
