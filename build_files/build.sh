@@ -2,26 +2,32 @@
 
 set -ouex pipefail
 
+# --- 1. Environment & Repository Configuration ---
 export PIP_ROOT_USER_ACTION=ignore
 
-### 1. Enable Repositories (COPR & External)
-echo "Configuring External Repositories..."
+COPR_REPOS=(
+    "sdegler/hyprland"
+    "errornointernet/quickshell"
+    "atim/starship"
+    "brycensranch/gpu-screen-recorder-git"
+    "lihaohong/yazi"
+    "dejan/lazygit"
+    "atim/lazydocker"
+    "heus-sueh/packages"
+    "komapro/lazyssh"
+)
 
-# Enable COPRs
-dnf5 -y copr enable sdegler/hyprland
-dnf5 -y copr enable errornointernet/quickshell
-dnf5 -y copr enable atim/starship
-dnf5 -y copr enable brycensranch/gpu-screen-recorder-git
-dnf5 -y copr enable lihaohong/yazi
-dnf5 -y copr enable dejan/lazygit
-dnf5 -y copr enable atim/lazydocker
-dnf5 -y copr enable heus-sueh/packages
-dnf5 -y copr enable komapro/lazyssh
+echo ":: Configuring External Repositories..."
+
+for repo in "${COPR_REPOS[@]}"; do
+    dnf5 -y copr enable "$repo"
+done
 
 dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
-curl -sL -o /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo
 
-# Add Visual Studio Code Repository
+curl -sL -o /etc/yum.repos.d/_copr_SwayNotificationCenter.repo \
+    "https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo"
+
 cat <<EOF > /etc/yum.repos.d/vscode.repo
 [code]
 name=Visual Studio Code
@@ -31,21 +37,19 @@ gpgcheck=1
 gpgkey=https://packages.microsoft.com/keys/microsoft.asc
 EOF
 
-# Add Antigravity Repository
-tee /etc/yum.repos.d/antigravity.repo << EOL
+cat <<EOF > /etc/yum.repos.d/antigravity.repo
 [antigravity-rpm]
 name=Antigravity RPM Repository
 baseurl=https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
 enabled=1
 gpgcheck=0
-EOL
+EOF
 
 dnf5 makecache
 
-### 2. Define Package Lists
+# --- 2. Package List Definitions ---
 
-# Core System & Shell Utilities
-SYSTEM_PACKAGES=(
+SYSTEM_UTILS=(
     bat
     btop
     fastfetch
@@ -61,80 +65,76 @@ SYSTEM_PACKAGES=(
     zsh
     unzip
     7zip
-    inotify-tools
     jq
-    socat
     file
-    glib2
-    libnotify
-    accountsservice
+    lsd
+    stow
+    bluez
+    bluez-tools
     brightnessctl
     ddcutil
     lm_sensors
-    bluez
-    bluez-tools
-    stow
-    lsd
-    wev
-    wf-recorder
+    inotify-tools
+    socat
+    glib2
     polkit
-)
-
-# Desktop Environment & Utils
-DESKTOP_PACKAGES=(
+    accountsservice
+    libnotify
     hyprland
-    hyprpicker
-    hyprsunset
-    hyprpanel
-    quickshell
-    swww
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
+    hyprpicker
+    hyprsunset
     wl-clipboard
     cliphist
-    fuzzel
-    pavucontrol
-    wireplumber
-    pipewire-utils
+    wev
+    wf-recorder
     grim
     slurp
-    swappy
-    gpu-screen-recorder-ui
-    wlogout
+    swww
+    wireplumber
+    pipewire-utils
+)
+
+APPLICATIONS=(
+    hyprpanel
+    quickshell
     waybar
     SwayNotificationCenter
     rofi
+    fuzzel
     aylurs-gtk-shell2
-)
-
-# File Management & GUI Apps
-APP_PACKAGES=(
+    wlogout
+    pavucontrol
     thunar
     thunar-archive-plugin
     file-roller
     yazi
+    gparted
+    code
+    neovim
+    python3-neovim
     lazygit
     lazydocker
     lazyssh
     imv
-    neovim
-    python3-neovim
+    swappy
+    gpu-screen-recorder-ui
+    ImageMagick
     libqalculate
     libqalculate-devel
-    ImageMagick
-    code
-    antigravity
     texlive
-    gparted
+    latexmk
+    antigravity
 )
 
-FONT_PACKAGES=(
+FONTS=(
     fontawesome-fonts-all
     google-noto-color-emoji-fonts
     google-noto-emoji-fonts
 )
 
-DEV_PACKAGES=(
+DEVELOPMENT=(
     git
     sassc
     xdg-utils
@@ -151,69 +151,54 @@ DEV_PACKAGES=(
     qt6-qt5compat-devel
 )
 
-REMOTE_RPMS=(
-    # "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
-)
+# --- 3. Main Installation ---
 
-
-### 3. Install Packages
+echo ":: Installing RPM packages..."
 rpm-ostree install \
-    "${SYSTEM_PACKAGES[@]}" \
-    "${DESKTOP_PACKAGES[@]}" \
-    "${APP_PACKAGES[@]}" \
-    "${FONT_PACKAGES[@]}" \
-    "${DEV_PACKAGES[@]}" \
-    "${REMOTE_RPMS[@]}"
+    "${SYSTEM_UTILS[@]}" \
+    "${APPLICATIONS[@]}" \
+    "${FONTS[@]}" \
+    "${DEVELOPMENT[@]}"
 
-# pip3 install gpustat
+# --- 4. Manual Binary Installation ---
 
-### 4. Manual Packages Install
-echo "Installing eza"
+echo ":: Installing eza..."
 curl -L "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz" | tar xz -C /tmp
 mv /tmp/eza /usr/bin/eza
 chmod +x /usr/bin/eza
 ln -sf /usr/bin/eza /usr/bin/exa
 
-### 5. Post-Install Configuration
-
-echo ":: configuring sassc link..."
-ln -sf /usr/bin/sassc /usr/bin/sass
-
-
-echo ":: installing Nerd Fonts (JetBrainsMono)..."
+echo ":: Installing Nerd Fonts (JetBrainsMono)..."
 FONT_DIR="/usr/share/fonts/JetBrainsMonoNerdFont"
 mkdir -p "$FONT_DIR"
-wget -P "$FONT_DIR" https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
-unzip -o "$FONT_DIR/JetBrainsMono.zip" -d "$FONT_DIR"
-rm "$FONT_DIR/JetBrainsMono.zip"
+wget -qO /tmp/jb_font.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+unzip -o /tmp/jb_font.zip -d "$FONT_DIR"
+rm /tmp/jb_font.zip
 
-echo ":: updating font cache..."
+# --- 5. Post-Install Configuration ---
+
+echo ":: Configuring system symlinks and permissions..."
+ln -sf /usr/bin/sassc /usr/bin/sass
+chmod -R a+r /usr/lib/python*/site-packages/
 fc-cache -fv
 
-chmod -R a+r /usr/lib/python*/site-packages/
+echo ":: Enabling Systemd Units..."
+systemctl enable podman.socket
+systemctl --global enable post-install.service
+chmod +x /usr/bin/post-install.sh
 
-### 5. Cleanup
-dnf5 -y copr disable sdegler/hyprland
-dnf5 -y copr disable errornointernet/quickshell
-dnf5 -y copr disable atim/starship
-dnf5 -y copr disable brycensranch/gpu-screen-recorder-git
-dnf5 -y copr disable lihaohong/yazi
-dnf5 -y copr disable dejan/lazygit
-dnf5 -y copr disable atim/lazydocker
-dnf5 -y copr disable heus-sueh/packages
-dnf5 -y copr disable komapro/lazyssh
+# --- 6. Cleanup ---
 
-sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter.repo
+echo ":: Cleaning up repositories and cache..."
+for repo in "${COPR_REPOS[@]}"; do
+    dnf5 -y copr disable "$repo"
+done
+
+sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr_SwayNotificationCenter.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
 
 dnf5 clean all
-dnf5 makecache
 rpm-ostree cleanup -m
-
-### 6. Systemd Units
-systemctl enable podman.socket
-systemctl --global enable post-install.service
-chmod +x /usr/bin/post-install.sh
 
 echo "Build script completed successfully."
