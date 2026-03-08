@@ -123,8 +123,6 @@ APPLICATIONS=(
     ImageMagick
     libqalculate
     libqalculate-devel
-    texlive
-    latexmk
     antigravity
 )
 
