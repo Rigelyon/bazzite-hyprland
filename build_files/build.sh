@@ -24,7 +24,7 @@ for repo in "${COPR_REPOS[@]}"; do
 done
 
 curl -sL -o /etc/yum.repos.d/terra.repo \
-    "https://repos.fyralabs.com/terra$(rpm -E %fedora).repo"
+    "https://repos.fyralabs.com/terra$(rpm -E %fedora)"
 
 dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
 
