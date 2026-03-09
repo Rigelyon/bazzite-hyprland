@@ -82,7 +82,7 @@ SYSTEM_UTILS=(
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
     hyprpicker
-    hyprsunset
+    wlsunset
     hyprland-guiutils
     hyprshot
     wl-clipboard
@@ -98,6 +98,8 @@ SYSTEM_UTILS=(
     tesseract
     tesseract-langpack-*
     satty
+    cava
+    evolution-data-server
 )
 
 APPLICATIONS=(
@@ -141,6 +143,7 @@ DEVELOPMENT=(
     sassc
     xdg-utils
     R-rsvg
+    python3
     qt6-qtbase
     qt6-qtdeclarative
     qt6-qtsvg
