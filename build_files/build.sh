@@ -14,6 +14,7 @@ COPR_REPOS=(
     "dejan/lazygit"
     "atim/lazydocker"
     "komapro/lazyssh"
+    "jkinred/satty"
 )
 
 echo ":: Configuring External Repositories..."
@@ -83,6 +84,7 @@ SYSTEM_UTILS=(
     hyprpicker
     hyprsunset
     hyprland-guiutils
+    hyprshot
     wl-clipboard
     cliphist
     wev
@@ -93,6 +95,9 @@ SYSTEM_UTILS=(
     wireplumber
     pipewire-utils
     cloudflare-warp
+    tesseract
+    tesseract-langpack-*
+    satty
 )
 
 APPLICATIONS=(
@@ -122,6 +127,7 @@ APPLICATIONS=(
     libqalculate
     libqalculate-devel
     antigravity
+    kitty
 )
 
 FONTS=(
