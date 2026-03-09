@@ -25,7 +25,7 @@ done
 
 dnf5 install -y \
     --nogpgcheck \
-    --repofrompath "terra,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
+    --repofrompath "terra-tmp,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
     terra-release
 
 dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
