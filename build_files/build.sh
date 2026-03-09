@@ -24,11 +24,12 @@ for repo in "${COPR_REPOS[@]}"; do
 done
 
 dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
+dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.exclude=astal,astal-io-libs
 
 curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
 
-curl -sL -o /etc/yum.repos.d/_copr_SwayNotificationCenter.repo \
-    "https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo"
+# curl -sL -o /etc/yum.repos.d/_copr_SwayNotificationCenter.repo \
+#     "https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo"
 
 cat <<EOF > /etc/yum.repos.d/vscode.repo
 [code]
@@ -100,14 +101,14 @@ SYSTEM_UTILS=(
 )
 
 APPLICATIONS=(
-    hyprpanel
+    # hyprpanel
     # quickshell
     noctalia-shell
     waybar
-    SwayNotificationCenter
+    # SwayNotificationCenter
     rofi
     fuzzel
-    aylurs-gtk-shell2
+    # aylurs-gtk-shell2
     wlogout
     pavucontrol
     thunar
