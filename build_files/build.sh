@@ -101,7 +101,7 @@ SYSTEM_UTILS=(
 
 APPLICATIONS=(
     hyprpanel
-    quickshell
+    # quickshell
     noctalia-shell
     waybar
     SwayNotificationCenter
