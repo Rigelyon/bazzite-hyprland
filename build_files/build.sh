@@ -108,7 +108,7 @@ APPLICATIONS=(
     # SwayNotificationCenter
     rofi
     fuzzel
-    # aylurs-gtk-shell2
+    aylurs-gtk-shell2
     wlogout
     pavucontrol
     thunar
@@ -190,6 +190,7 @@ chmod -R a+r /usr/lib/python*/site-packages/
 fc-cache -fv
 
 echo ":: Enabling Systemd Units..."
+systemctl enable warp-svc.service
 systemctl enable podman.socket
 systemctl --global enable post-install.service
 chmod +x /usr/bin/post-install.sh
@@ -201,7 +202,7 @@ for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr disable "$repo"
 done
 
-sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr_SwayNotificationCenter.repo
+# sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr_SwayNotificationCenter.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
 
