@@ -23,10 +23,14 @@ for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr enable "$repo"
 done
 
-curl -sL -o /etc/yum.repos.d/terra.repo \
-    "https://repos.fyralabs.com/terra$(rpm -E %fedora)"
+dnf5 install -y \
+    --nogpgcheck \
+    --repofrompath "terra,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
+    terra-release
 
 dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
+
+curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
 
 curl -sL -o /etc/yum.repos.d/_copr_SwayNotificationCenter.repo \
     "https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/repo/fedora-$(rpm -E %fedora)/erikreider-SwayNotificationCenter-fedora-$(rpm -E %fedora).repo"
@@ -53,7 +57,6 @@ dnf5 makecache
 # --- 2. Package List Definitions ---
 
 SYSTEM_UTILS=(
-    terra-release
     bat
     btop
     fastfetch
@@ -156,8 +159,10 @@ DEVELOPMENT=(
 
 # --- 3. Main Installation ---
 
+yum install cloudflare-warp
+
 echo ":: Installing RPM packages..."
-rpm-ostree install \
+dnf5 install -y \
     "${SYSTEM_UTILS[@]}" \
     "${APPLICATIONS[@]}" \
     "${FONTS[@]}" \
@@ -202,6 +207,5 @@ sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
 
 dnf5 clean all
-rpm-ostree cleanup -m
 
 echo "Build script completed successfully."
