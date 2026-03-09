@@ -99,7 +99,7 @@ APPLICATIONS=(
     # hyprpanel
     # quickshell
     noctalia-shell
-    waybar
+    # waybar
     rofi
     fuzzel
     wlogout
