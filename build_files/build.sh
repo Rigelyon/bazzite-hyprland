@@ -23,11 +23,6 @@ for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr enable "$repo"
 done
 
-dnf5 install -y \
-    --nogpgcheck \
-    --repofrompath "terra-tmp,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
-    terra-release
-
 dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
 
 curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
@@ -101,6 +96,7 @@ SYSTEM_UTILS=(
     swww
     wireplumber
     pipewire-utils
+    cloudflare-warp
 )
 
 APPLICATIONS=(
@@ -159,10 +155,12 @@ DEVELOPMENT=(
 
 # --- 3. Main Installation ---
 
-yum install -y cloudflare-warp
+mkdir -p /var/opt/cloudflare-warp
+ln -sf /var/opt/cloudflare-warp /opt/cloudflare-warp
 
 echo ":: Installing RPM packages..."
 dnf5 install -y \
+    --nogpgcheck --repofrompath "terra-tmp,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
     "${SYSTEM_UTILS[@]}" \
     "${APPLICATIONS[@]}" \
     "${FONTS[@]}" \
