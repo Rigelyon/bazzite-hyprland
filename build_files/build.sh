@@ -82,6 +82,7 @@ SYSTEM_UTILS=(
     xdg-desktop-portal-gtk
     hyprpicker
     hyprsunset
+    hyprland-guiutils
     wl-clipboard
     cliphist
     wev
