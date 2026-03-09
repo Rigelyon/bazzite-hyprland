@@ -8,7 +8,6 @@ export PIP_ROOT_USER_ACTION=ignore
 COPR_REPOS=(
     "sdegler/hyprland"
     "errornointernet/quickshell"
-    "vinceliuice/noctalia"
     "atim/starship"
     "brycensranch/gpu-screen-recorder-git"
     "lihaohong/yazi"
