@@ -24,7 +24,7 @@ for repo in "${COPR_REPOS[@]}"; do
 done
 
 dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200
-dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.exclude=astal,astal-io-libs
+dnf5 config-manager setopt copr:copr.fedorainfracloud.org:heus-sueh:packages.exclude=astal,astal-io,astal-io-libs
 
 curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
 
