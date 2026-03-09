@@ -159,7 +159,7 @@ DEVELOPMENT=(
 
 # --- 3. Main Installation ---
 
-yum install cloudflare-warp
+yum install -y cloudflare-warp
 
 echo ":: Installing RPM packages..."
 dnf5 install -y \
