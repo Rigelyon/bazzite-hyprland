@@ -43,7 +43,7 @@ enabled=1
 gpgcheck=0
 EOF
 
-cat <<'EOF' | sudo tee /etc/yum.repos.d/wayscriber.repo
+cat <<'EOF' > /etc/yum.repos.d/wayscriber.repo
 [wayscriber]
 name=Wayscriber Repo
 baseurl=https://wayscriber.com/rpm
