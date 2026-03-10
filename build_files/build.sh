@@ -111,6 +111,7 @@ SYSTEM_UTILS=(
     cava
     evolution-data-server
     wayscriber
+    wayscriber-configurator
 )
 
 APPLICATIONS=(
