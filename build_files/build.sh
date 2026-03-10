@@ -43,6 +43,16 @@ enabled=1
 gpgcheck=0
 EOF
 
+cat <<'EOF' | sudo tee /etc/yum.repos.d/wayscriber.repo
+[wayscriber]
+name=Wayscriber Repo
+baseurl=https://wayscriber.com/rpm
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://wayscriber.com/rpm/RPM-GPG-KEY-wayscriber.asc
+EOF
+
 dnf5 makecache
 
 # --- 2. Package List Definitions ---
@@ -100,6 +110,7 @@ SYSTEM_UTILS=(
     satty
     cava
     evolution-data-server
+    wayscriber
 )
 
 APPLICATIONS=(
@@ -207,6 +218,7 @@ done
 # sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr_SwayNotificationCenter.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
+sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/wayscriber.repo
 
 dnf5 clean all
 
