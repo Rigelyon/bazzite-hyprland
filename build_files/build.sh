@@ -64,6 +64,7 @@ SYSTEM_UTILS=(
     fd-find
     fzf
     gh
+    git-credential-oauth
     micro
     ripgrep
     starship
