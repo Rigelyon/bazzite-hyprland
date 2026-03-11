@@ -35,13 +35,13 @@ gpgcheck=1
 gpgkey=https://packages.microsoft.com/keys/microsoft.asc
 EOF
 
-cat <<EOF > /etc/yum.repos.d/antigravity.repo
-[antigravity-rpm]
-name=Antigravity RPM Repository
-baseurl=https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
-enabled=1
-gpgcheck=0
-EOF
+# cat <<EOF > /etc/yum.repos.d/antigravity.repo
+# [antigravity-rpm]
+# name=Antigravity RPM Repository
+# baseurl=https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
+# enabled=1
+# gpgcheck=0
+# EOF
 
 cat <<'EOF' > /etc/yum.repos.d/wayscriber.repo
 [wayscriber]
@@ -128,7 +128,7 @@ APPLICATIONS=(
     file-roller
     yazi
     gparted
-    code
+    # code
     neovim
     python3-neovim
     lazygit
@@ -140,7 +140,7 @@ APPLICATIONS=(
     ImageMagick
     libqalculate
     libqalculate-devel
-    antigravity
+    # antigravity
     kitty
 )
 
@@ -217,8 +217,8 @@ for repo in "${COPR_REPOS[@]}"; do
 done
 
 # sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr_SwayNotificationCenter.repo
-sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
-sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
+# sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
+# sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/wayscriber.repo
 
 dnf5 clean all
