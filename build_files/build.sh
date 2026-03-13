@@ -7,6 +7,7 @@ export PIP_ROOT_USER_ACTION=ignore
 
 COPR_REPOS=(
     "sdegler/hyprland"
+    "lionheartp/Hyprland"
     "errornointernet/quickshell"
     "atim/starship"
     "brycensranch/gpu-screen-recorder-git"
@@ -149,6 +150,8 @@ FONTS=(
     fontawesome-fonts-all
     google-noto-color-emoji-fonts
     google-noto-emoji-fonts
+    dejavu-sans-fonts
+    dejavu-sans-mono-fonts
 )
 
 DEVELOPMENT=(
@@ -177,7 +180,7 @@ ln -sf /var/opt/cloudflare-warp /opt/cloudflare-warp
 
 echo ":: Installing RPM packages..."
 dnf5 install -y \
-    --nogpgcheck --repofrompath "terra-tmp,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
+    # --nogpgcheck --repofrompath "terra-tmp,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
     "${SYSTEM_UTILS[@]}" \
     "${APPLICATIONS[@]}" \
     "${FONTS[@]}" \
