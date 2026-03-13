@@ -167,6 +167,7 @@ DEVELOPMENT=(
     qt6-qtdeclarative-devel
     qt6-qtsvg-devel
     qt6-qt5compat-devel
+    glew
 )
 
 # --- 3. Main Installation ---
