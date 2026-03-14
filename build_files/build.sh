@@ -114,6 +114,7 @@ SYSTEM_UTILS=(
     evolution-data-server
     wayscriber
     wayscriber-configurator
+    s-tui
 )
 
 APPLICATIONS=(
