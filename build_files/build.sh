@@ -179,8 +179,8 @@ mkdir -p /var/opt/cloudflare-warp
 ln -sf /var/opt/cloudflare-warp /opt/cloudflare-warp
 
 echo ":: Installing RPM packages..."
-dnf5 install -y \
     # --nogpgcheck --repofrompath "terra-tmp,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
+dnf5 install -y \
     "${SYSTEM_UTILS[@]}" \
     "${APPLICATIONS[@]}" \
     "${FONTS[@]}" \
