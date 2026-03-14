@@ -160,6 +160,7 @@ DEVELOPMENT=(
     xdg-utils
     R-rsvg
     python3
+    qt6ct
     qt6-qtbase
     qt6-qtdeclarative
     qt6-qtsvg
