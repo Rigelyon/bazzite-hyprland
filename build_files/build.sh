@@ -115,6 +115,7 @@ SYSTEM_UTILS=(
     wayscriber
     wayscriber-configurator
     s-tui
+    playerctl
 )
 
 APPLICATIONS=(
