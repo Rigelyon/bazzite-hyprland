@@ -123,8 +123,8 @@ APPLICATIONS=(
     # quickshell
     noctalia-shell
     # waybar
-    rofi
-    fuzzel
+    # rofi
+    # fuzzel
     wlogout
     pavucontrol
     thunar
@@ -203,6 +203,41 @@ mkdir -p "$FONT_DIR"
 wget -qO /tmp/jb_font.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
 unzip -o /tmp/jb_font.zip -d "$FONT_DIR"
 rm /tmp/jb_font.zip
+
+echo ":: Installing Nerd Fonts (CodeNewRoman)..."
+FONT_DIR="/usr/share/fonts/CodeNewRomanNerdFont"
+mkdir -p "$FONT_DIR"
+wget -qO /tmp/cnr_font.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CodeNewRoman.zip
+unzip -o /tmp/cnr_font.zip -d "$FONT_DIR"
+rm /tmp/cnr_font.zip
+
+echo ":: Installing Nerd Fonts (Noto)..."
+FONT_DIR="/usr/share/fonts/NotoNerdFont"
+mkdir -p "$FONT_DIR"
+wget -qO /tmp/noto_font.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Noto.zip
+unzip -o /tmp/noto_font.zip -d "$FONT_DIR"
+rm /tmp/noto_font.zip
+
+echo ":: Installing Nerd Fonts (RobotoMono)..."
+FONT_DIR="/usr/share/fonts/RobotoMonoNerdFont"
+mkdir -p "$FONT_DIR"
+wget -qO /tmp/roboto_font.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/RobotoMono.zip
+unzip -o /tmp/roboto_font.zip -d "$FONT_DIR"
+rm /tmp/roboto_font.zip
+
+echo ":: Installing Nerd Fonts (Tinos)..."
+FONT_DIR="/usr/share/fonts/TinosNerdFont"
+mkdir -p "$FONT_DIR"
+wget -qO /tmp/tinos_font.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Tinos.zip
+unzip -o /tmp/tinos_font.zip -d "$FONT_DIR"
+rm /tmp/tinos_font.zip
+
+echo ":: Installing Nerd Fonts (AdwaitaMono)..."
+FONT_DIR="/usr/share/fonts/AdwaitaMonoNerdFont"
+mkdir -p "$FONT_DIR"
+wget -qO /tmp/adwaita_font.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/AdwaitaMono.zip
+unzip -o /tmp/adwaita_font.zip -d "$FONT_DIR"
+rm /tmp/adwaita_font.zip
 
 # --- 5. Post-Install Configuration ---
 
