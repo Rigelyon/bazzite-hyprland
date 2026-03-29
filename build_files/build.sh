@@ -116,6 +116,7 @@ SYSTEM_UTILS=(
     wayscriber-configurator
     s-tui
     playerctl
+    zbar
 )
 
 APPLICATIONS=(
