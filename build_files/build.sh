@@ -175,6 +175,7 @@ DEVELOPMENT=(
     qt6-qtsvg-devel
     qt6-qt5compat-devel
     glew
+
 )
 
 # --- 3. Main Installation ---
@@ -191,6 +192,10 @@ dnf5 install -y \
     "${DEVELOPMENT[@]}"
 
 # --- 4. Manual Binary Installation ---
+
+echo ":: Installing nmgui..."
+curl -L "https://github.com/s-adi-dev/nmgui/releases/download/v1.0.0/main.bin" -o /usr/bin/nmgui
+chmod +x /usr/bin/nmgui
 
 echo ":: Installing eza..."
 curl -L "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz" | tar xz -C /tmp
