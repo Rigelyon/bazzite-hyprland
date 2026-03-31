@@ -194,7 +194,7 @@ dnf5 install -y \
 # --- 4. Manual Binary Installation ---
 
 echo ":: Installing nmgui..."
-curl -L "https://github.com/s-adi-dev/nmgui/releases/download/v1.0.0/main.bin" -o /usr/bin/nmgui
+curl -L "https://github.com/s-adi-dev/nmgui/releases/latest/download/main.bin" -o /usr/bin/nmgui
 chmod +x /usr/bin/nmgui
 
 echo ":: Installing eza..."
