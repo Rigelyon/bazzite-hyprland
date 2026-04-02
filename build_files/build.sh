@@ -54,6 +54,15 @@ repo_gpgcheck=1
 gpgkey=https://wayscriber.com/rpm/RPM-GPG-KEY-wayscriber.asc
 EOF
 
+cat << 'EOF' > /etc/yum.repos.d/zerotier.repo
+[zerotier]
+name=ZeroTier, Inc. RPM Release Repository
+baseurl=https://download.zerotier.com/redhat/fc/$releasever
+enabled=1
+gpgcheck=1
+gpgkey=https://download.zerotier.com/contact@zerotier.com.gpg
+EOF
+
 dnf5 makecache
 
 # --- 2. Package List Definitions ---
@@ -117,6 +126,7 @@ SYSTEM_UTILS=(
     s-tui
     playerctl
     zbar
+    zerotier-one
 )
 
 APPLICATIONS=(
@@ -255,6 +265,7 @@ fc-cache -fv
 echo ":: Enabling Systemd Units..."
 systemctl enable warp-svc.service
 systemctl enable podman.socket
+sudo systemctl enable --now zerotier-one
 systemctl --global enable post-install.service
 chmod +x /usr/bin/post-install.sh
 
