@@ -265,7 +265,7 @@ fc-cache -fv
 echo ":: Enabling Systemd Units..."
 systemctl enable warp-svc.service
 systemctl enable podman.socket
-sudo systemctl enable --now zerotier-one
+systemctl enable --now zerotier-one
 systemctl --global enable post-install.service
 chmod +x /usr/bin/post-install.sh
 
