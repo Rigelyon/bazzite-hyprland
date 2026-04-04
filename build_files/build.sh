@@ -127,6 +127,7 @@ SYSTEM_UTILS=(
     playerctl
     zbar
     zerotier-one
+    cronie
 )
 
 APPLICATIONS=(
@@ -265,7 +266,8 @@ fc-cache -fv
 echo ":: Enabling Systemd Units..."
 systemctl enable warp-svc.service
 systemctl enable podman.socket
-systemctl enable --now zerotier-one
+systemctl enable zerotier-one
+systemctl enable crond
 systemctl --global enable post-install.service
 chmod +x /usr/bin/post-install.sh
 
