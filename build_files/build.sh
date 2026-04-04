@@ -128,6 +128,7 @@ SYSTEM_UTILS=(
     zbar
     zerotier-one
     cronie
+    at
 )
 
 APPLICATIONS=(
@@ -268,6 +269,7 @@ systemctl enable warp-svc.service
 systemctl enable podman.socket
 systemctl enable zerotier-one
 systemctl enable crond
+systemctl enable atd
 systemctl --global enable post-install.service
 chmod +x /usr/bin/post-install.sh
 
