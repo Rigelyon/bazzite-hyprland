@@ -14,7 +14,6 @@ COPR_REPOS=(
     "lihaohong/yazi"
     "dejan/lazygit"
     "atim/lazydocker"
-    "komapro/lazyssh"
     "jkinred/satty"
 )
 
@@ -24,25 +23,7 @@ for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr enable "$repo"
 done
 
-
 curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
-
-cat <<EOF > /etc/yum.repos.d/vscode.repo
-[code]
-name=Visual Studio Code
-baseurl=https://packages.microsoft.com/yumrepos/vscode
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc
-EOF
-
-# cat <<EOF > /etc/yum.repos.d/antigravity.repo
-# [antigravity-rpm]
-# name=Antigravity RPM Repository
-# baseurl=https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
-# enabled=1
-# gpgcheck=0
-# EOF
 
 cat <<'EOF' > /etc/yum.repos.d/wayscriber.repo
 [wayscriber]
@@ -123,21 +104,17 @@ SYSTEM_UTILS=(
     evolution-data-server
     wayscriber
     wayscriber-configurator
-    s-tui
     playerctl
     zbar
     zerotier-one
     cronie
     at
+    podman-compose
+    dua-cli
 )
 
 APPLICATIONS=(
-    # hyprpanel
-    # quickshell
     noctalia-shell
-    # waybar
-    # rofi
-    # fuzzel
     wlogout
     pavucontrol
     thunar
@@ -145,19 +122,16 @@ APPLICATIONS=(
     file-roller
     yazi
     gparted
-    # code
     neovim
     python3-neovim
     lazygit
     lazydocker
-    lazyssh
     imv
     swappy
     gpu-screen-recorder-ui
     ImageMagick
     libqalculate
     libqalculate-devel
-    # antigravity
     kitty
 )
 
@@ -187,7 +161,6 @@ DEVELOPMENT=(
     qt6-qtsvg-devel
     qt6-qt5compat-devel
     glew
-
 )
 
 # --- 3. Main Installation ---
@@ -196,7 +169,6 @@ mkdir -p /var/opt/cloudflare-warp
 ln -sf /var/opt/cloudflare-warp /opt/cloudflare-warp
 
 echo ":: Installing RPM packages..."
-    # --nogpgcheck --repofrompath "terra-tmp,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
 dnf5 install -y \
     "${SYSTEM_UTILS[@]}" \
     "${APPLICATIONS[@]}" \
@@ -204,6 +176,16 @@ dnf5 install -y \
     "${DEVELOPMENT[@]}"
 
 # --- 4. Manual Binary Installation ---
+
+echo ":: Installing External RPM packages..."
+EXTERNAL_RPMS=(
+    "https://github.com/jooaf/thoth/releases/download/v0.1.30/thoth_0.1.30_linux_amd64.rpm" # Update need to be manually change
+    "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm" # Update need to be manually change
+)
+
+for rpm in "${EXTERNAL_RPMS[@]}"; do
+    dnf5 install -y "$rpm"
+done
 
 echo ":: Installing nmgui..."
 curl -L "https://github.com/s-adi-dev/nmgui/releases/latest/download/main.bin" -o /usr/bin/nmgui
@@ -280,9 +262,6 @@ for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr disable "$repo"
 done
 
-# sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/_copr_SwayNotificationCenter.repo
-# sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/vscode.repo
-# sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/antigravity.repo
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/wayscriber.repo
 
 dnf5 clean all
