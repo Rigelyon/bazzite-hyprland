@@ -111,6 +111,7 @@ SYSTEM_UTILS=(
     at
     podman-compose
     dua-cli
+    wl-mirror
 )
 
 APPLICATIONS=(
