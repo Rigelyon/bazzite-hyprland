@@ -49,119 +49,117 @@ dnf5 makecache
 # --- 2. Package List Definitions ---
 
 SYSTEM_UTILS=(
-    bat
-    btop
-    fastfetch
-    fd-find
-    fzf
-    gh
-    git-credential-oauth
-    micro
-    ripgrep
-    starship
-    trash-cli
-    wget
-    zoxide
-    zsh
-    unzip
     7zip
-    jq
-    file
-    lsd
-    stow
+    accountsservice
+    at
+    bat
     bluez
     bluez-tools
     brightnessctl
-    ddcutil
-    lm_sensors
-    inotify-tools
-    socat
-    glib2
-    polkit
-    accountsservice
-    libnotify
-    hyprland
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gtk
-    hyprpicker
-    wlsunset
-    hyprland-guiutils
-    hyprshot
-    wl-clipboard
+    btop
+    cava
     cliphist
-    wev
-    wf-recorder
-    grim
-    slurp
-    swww
-    wireplumber
-    pipewire-utils
     cloudflare-warp
+    cronie
+    ddcutil
+    dua-cli
+    evolution-data-server
+    fastfetch
+    fd-find
+    file
+    fzf
+    gh
+    git-credential-oauth
+    glib2
+    grim
+    hyprland
+    hyprland-guiutils
+    hyprpicker
+    hyprshot
+    inotify-tools
+    jq
+    libnotify
+    lm_sensors
+    lsd
+    micro
+    pipewire-utils
+    playerctl
+    podman-compose
+    polkit
+    ripgrep
+    satty
+    slurp
+    socat
+    starship
+    stow
+    swww
     tesseract
     tesseract-langpack-*
-    satty
-    cava
-    evolution-data-server
+    trash-cli
+    unzip
     wayscriber
     wayscriber-configurator
-    playerctl
+    wev
+    wf-recorder
+    wget
+    wireplumber
+    wl-clipboard
+    wl-mirror
+    wlsunset
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
     zbar
     zerotier-one
-    cronie
-    at
-    podman-compose
-    dua-cli
-    wl-mirror
+    zoxide
+    zsh
 )
 
 APPLICATIONS=(
-    noctalia-shell
-    wlogout
-    pavucontrol
-    thunar
-    thunar-archive-plugin
     file-roller
-    yazi
     gparted
-    neovim
-    python3-neovim
-    lazygit
-    lazydocker
-    imv
-    swappy
     gpu-screen-recorder-ui
     ImageMagick
+    imv
+    kitty
+    lazydocker
+    lazygit
     libqalculate
     libqalculate-devel
-    kitty
+    neovim
+    noctalia-shell
+    pavucontrol
+    python3-neovim
+    swappy
+    wlogout
+    yazi
 )
 
 FONTS=(
+    dejavu-sans-fonts
+    dejavu-sans-mono-fonts
     fontawesome-fonts-all
     google-noto-color-emoji-fonts
     google-noto-emoji-fonts
-    dejavu-sans-fonts
-    dejavu-sans-mono-fonts
 )
 
 DEVELOPMENT=(
     git
+    glew
+    python3
+    qt6-qt5compat
+    qt6-qt5compat-devel
+    qt6-qtbase
+    qt6-qtbase-devel
+    qt6-qtdeclarative
+    qt6-qtdeclarative-devel
+    qt6-qtimageformats
+    qt6-qtmultimedia
+    qt6-qtsvg
+    qt6-qtsvg-devel
+    qt6ct
+    R-rsvg
     sassc
     xdg-utils
-    R-rsvg
-    python3
-    qt6ct
-    qt6-qtbase
-    qt6-qtdeclarative
-    qt6-qtsvg
-    qt6-qt5compat
-    qt6-qtmultimedia
-    qt6-qtimageformats
-    qt6-qtbase-devel
-    qt6-qtdeclarative-devel
-    qt6-qtsvg-devel
-    qt6-qt5compat-devel
-    glew
 )
 
 # --- 3. Main Installation ---
