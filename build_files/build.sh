@@ -82,6 +82,8 @@ SYSTEM_UTILS=(
     lm_sensors
     lsd
     micro
+    pandoc
+    pandoc-cli
     pipewire-utils
     playerctl
     podman-compose
