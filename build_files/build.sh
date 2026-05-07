@@ -14,7 +14,6 @@ COPR_REPOS=(
     "lihaohong/yazi"
     "dejan/lazygit"
     "atim/lazydocker"
-    "jkinred/satty"
 )
 
 echo ":: Configuring External Repositories..."
