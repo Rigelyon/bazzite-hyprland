@@ -15,6 +15,7 @@ COPR_REPOS=(
     "dejan/lazygit"
     "atim/lazydocker"
     "jkinred/satty"
+    "imput/helium"
 )
 
 echo ":: Configuring External Repositories..."
@@ -120,6 +121,7 @@ APPLICATIONS=(
     file-roller
     gparted
     gpu-screen-recorder-ui
+    helium-bin
     ImageMagick
     imv
     kitty
