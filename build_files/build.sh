@@ -22,8 +22,6 @@ for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr enable "$repo"
 done
 
-curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | tee /etc/yum.repos.d/cloudflare-warp.repo
-
 cat <<'EOF' > /etc/yum.repos.d/wayscriber.repo
 [wayscriber]
 name=Wayscriber Repo
@@ -58,7 +56,6 @@ SYSTEM_UTILS=(
     btop
     cava
     cliphist
-    cloudflare-warp
     cronie
     ddcutil
     dua-cli
