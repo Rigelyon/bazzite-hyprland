@@ -178,12 +178,39 @@ dnf5 install -y \
 # --- 4. Manual Binary Installation ---
 
 echo ":: Installing External RPM packages..."
-EXTERNAL_RPMS=(
-    "https://github.com/jooaf/thoth/releases/download/v0.1.30/thoth_0.1.30_linux_amd64.rpm" # Update need to be manually change
-    "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm" # Update need to be manually change
+
+get_latest_github_rpm() {
+    local repo=$1
+    curl -s "https://api.github.com/repos/$repo/releases/latest" | \
+    jq -r '.assets[].browser_download_url' | \
+    grep -i '\.rpm$' | \
+    grep -iE 'amd64|x86_64|noarch' | \
+    head -n 1
+}
+
+GITHUB_RPMS=(
+    "jooaf/thoth"
+    "SourcewareLab/Toney"
 )
 
-for rpm in "${EXTERNAL_RPMS[@]}"; do
+echo "Fetching and installing dynamic RPMs from GitHub..."
+for repo in "${GITHUB_RPMS[@]}"; do
+    LATEST_URL=$(get_latest_github_rpm "$repo")
+
+    if [ -n "$LATEST_URL" ]; then
+        echo "   Installing $repo: $LATEST_URL"
+        dnf5 install -y "$LATEST_URL"
+    else
+        echo "   WARNING: Failed to find a compatible RPM for $repo. Skipping."
+    fi
+done
+
+STATIC_RPMS=(
+    "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm"
+)
+
+echo "Installing static external RPMs..."
+for rpm in "${STATIC_RPMS[@]}"; do
     dnf5 install -y "$rpm"
 done
 
