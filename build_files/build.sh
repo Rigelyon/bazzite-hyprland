@@ -271,7 +271,6 @@ chmod -R a+r /usr/lib/python*/site-packages/
 fc-cache -fv
 
 echo ":: Enabling Systemd Units..."
-systemctl enable warp-svc.service
 systemctl enable podman.socket
 systemctl enable zerotier-one
 systemctl enable crond
