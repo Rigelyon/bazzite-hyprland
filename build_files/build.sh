@@ -41,6 +41,15 @@ gpgcheck=1
 gpgkey=https://download.zerotier.com/contact@zerotier.com.gpg
 EOF
 
+cat << 'EOF' > /etc/yum.repos.d/charm.repo
+[charm]
+name=Charm
+baseurl=https://repo.charm.sh/yum/
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.charm.sh/yum/gpg.key
+EOF
+
 dnf5 makecache
 
 # --- 2. Package List Definitions ---
@@ -59,6 +68,7 @@ SYSTEM_UTILS=(
     cronie
     ddcutil
     dua-cli
+    duf
     evolution-data-server
     fastfetch
     fd-find
@@ -67,6 +77,7 @@ SYSTEM_UTILS=(
     gh
     git-credential-oauth
     glib2
+    glow
     grim
     hyprland
     hyprland-guiutils
@@ -186,8 +197,8 @@ get_latest_github_rpm() {
 }
 
 GITHUB_RPMS=(
-    "jooaf/thoth"
-    "SourcewareLab/Toney"
+    # "jooaf/thoth"
+    # "SourcewareLab/Toney"
 )
 
 echo "Fetching and installing dynamic RPMs from GitHub..."
@@ -220,6 +231,17 @@ curl -L "https://github.com/eza-community/eza/releases/latest/download/eza_x86_6
 mv /tmp/eza /usr/bin/eza
 chmod +x /usr/bin/eza
 ln -sf /usr/bin/eza /usr/bin/exa
+
+echo ":: Installing curlie..."
+CURLIE_URL=$(curl -s "https://api.github.com/repos/rs/curlie/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux_amd64.tar.gz' | head -n 1)
+curl -L "$CURLIE_URL" | tar xz -C /tmp
+mv /tmp/curlie /usr/bin/curlie
+chmod +x /usr/bin/curlie
+
+echo ":: Installing walk..."
+WALK_URL=$(curl -s "https://api.github.com/repos/antonmedv/walk/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux_amd64' | head -n 1)
+curl -L "$WALK_URL" -o /usr/bin/walk
+chmod +x /usr/bin/walk
 
 echo ":: Installing Nerd Fonts (JetBrainsMono)..."
 FONT_DIR="/usr/share/fonts/JetBrainsMonoNerdFont"
@@ -284,6 +306,7 @@ for repo in "${COPR_REPOS[@]}"; do
 done
 
 sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/wayscriber.repo
+sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/charm.repo
 
 dnf5 clean all
 
