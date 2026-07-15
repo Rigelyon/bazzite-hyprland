@@ -106,6 +106,7 @@ SYSTEM_UTILS=(
     tesseract-langpack-*
     trash-cli
     unzip
+    ufw
     wayscriber
     wayscriber-configurator
     wev
@@ -242,6 +243,8 @@ echo ":: Installing walk..."
 WALK_URL=$(curl -s "https://api.github.com/repos/antonmedv/walk/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux_amd64' | head -n 1)
 curl -L "$WALK_URL" -o /usr/bin/walk
 chmod +x /usr/bin/walk
+
+# --- Fonts ---
 
 echo ":: Installing Nerd Fonts (JetBrainsMono)..."
 FONT_DIR="/usr/share/fonts/JetBrainsMonoNerdFont"
