@@ -9,6 +9,8 @@ COPR_REPOS=(
     "ashbuk/Hyprland-Fedora"
     "lionheartp/Hyprland"
     "nett00n/hyprland"
+    "materka/swww"
+    "mineiro/satty"
     "errornointernet/quickshell"
     "atim/starship"
     "brycensranch/gpu-screen-recorder-git"
