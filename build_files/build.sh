@@ -9,8 +9,6 @@ COPR_REPOS=(
     "ashbuk/Hyprland-Fedora"
     "lionheartp/Hyprland"
     "nett00n/hyprland"
-    "materka/swww"
-    "mineiro/satty"
     "errornointernet/quickshell"
     "atim/starship"
     "brycensranch/gpu-screen-recorder-git"
@@ -106,12 +104,10 @@ SYSTEM_UTILS=(
     podman-compose
     polkit
     ripgrep
-    satty
     slurp
     socat
     starship
     stow
-    swww
     tesseract
     tesseract-langpack-*
     trash-cli
@@ -255,6 +251,22 @@ echo ":: Installing walk..."
 WALK_URL=$(curl -s "https://api.github.com/repos/antonmedv/walk/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux_amd64' | head -n 1)
 curl -L "$WALK_URL" -o /usr/bin/walk
 chmod +x /usr/bin/walk
+
+echo ":: Installing satty..."
+SATTY_URL=$(curl -s "https://api.github.com/repos/gabm/Satty/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux-gnu.tar.gz' | head -n 1)
+curl -L "$SATTY_URL" | tar xz -C /tmp
+find /tmp -type f -name "satty" -exec mv {} /usr/bin/satty \;
+chmod +x /usr/bin/satty
+
+echo ":: Installing swww..."
+dnf5 install -y lz4 || true
+SWWW_URL=$(curl -s "https://api.github.com/repos/LGFae/swww/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux-x86_64.tar.lz4' | head -n 1)
+curl -L "$SWWW_URL" -o /tmp/swww.tar.lz4
+lz4 -d /tmp/swww.tar.lz4 /tmp/swww.tar || true
+tar -xf /tmp/swww.tar -C /tmp || true
+find /tmp -type f -name "swww" -exec mv {} /usr/bin/swww \; || true
+find /tmp -type f -name "swww-daemon" -exec mv {} /usr/bin/swww-daemon \; || true
+chmod +x /usr/bin/swww /usr/bin/swww-daemon || true
 
 # --- Fonts ---
 
