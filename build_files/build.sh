@@ -136,6 +136,7 @@ APPLICATIONS=(
     lazygit
     libqalculate
     libqalculate-devel
+    mpv
     neovim
     noctalia-shell
     pavucontrol
