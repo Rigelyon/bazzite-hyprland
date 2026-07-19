@@ -25,7 +25,7 @@ done
 # Exclude broken Hyprland packages from lionheartp so we only get Noctalia from it
 for repo_file in /etc/yum.repos.d/*lionheartp*Hyprland*.repo; do
     if [ -f "$repo_file" ]; then
-        echo "exclude=hyprland* aquamarine* hyprutils* xdg-desktop-portal-hyprland*" >> "$repo_file"
+        echo "exclude=hypr* aquamarine* xdg-desktop-portal-hyprland*" >> "$repo_file"
     fi
 done
 
