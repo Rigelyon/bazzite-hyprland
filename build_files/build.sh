@@ -8,6 +8,7 @@ export PIP_ROOT_USER_ACTION=ignore
 COPR_REPOS=(
     "ashbuk/Hyprland-Fedora"
     "lionheartp/Hyprland"
+    "nett00n/hyprland"
     "errornointernet/quickshell"
     "atim/starship"
     "brycensranch/gpu-screen-recorder-git"
