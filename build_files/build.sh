@@ -116,6 +116,7 @@ SYSTEM_UTILS=(
     wl-clipboard
     wl-mirror
     wlsunset
+    xclip
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     zbar
