@@ -7,7 +7,7 @@ export PIP_ROOT_USER_ACTION=ignore
 
 COPR_REPOS=(
     "ashbuk/Hyprland-Fedora"
-    "zhangyi6324/noctalia-shell"
+    "lionheartp/Hyprland"
     "errornointernet/quickshell"
     "atim/starship"
     "brycensranch/gpu-screen-recorder-git"
@@ -20,6 +20,13 @@ echo ":: Configuring External Repositories..."
 
 for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr enable "$repo"
+done
+
+# Exclude broken Hyprland packages from lionheartp so we only get Noctalia from it
+for repo_file in /etc/yum.repos.d/*lionheartp*Hyprland*.repo; do
+    if [ -f "$repo_file" ]; then
+        echo "exclude=hyprland* aquamarine* hyprutils* xdg-desktop-portal-hyprland*" >> "$repo_file"
+    fi
 done
 
 cat <<'EOF' > /etc/yum.repos.d/wayscriber.repo
