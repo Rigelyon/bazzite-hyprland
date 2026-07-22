@@ -148,7 +148,9 @@ APPLICATIONS=(
     noctalia
     pavucontrol
     python3-neovim
+    satty
     swappy
+    swww
     wlogout
     yazi
 )
@@ -200,10 +202,10 @@ echo ":: Installing External RPM packages..."
 get_latest_github_rpm() {
     local repo=$1
     curl -s "https://api.github.com/repos/$repo/releases/latest" | \
-    jq -r '.assets[].browser_download_url' | \
+    jq -r '.assets[]?.browser_download_url // empty' | \
     grep -i '\.rpm$' | \
     grep -iE 'amd64|x86_64|noarch' | \
-    head -n 1
+    head -n 1 || true
 }
 
 GITHUB_RPMS=(
@@ -243,31 +245,23 @@ chmod +x /usr/bin/eza
 ln -sf /usr/bin/eza /usr/bin/exa
 
 echo ":: Installing curlie..."
-CURLIE_URL=$(curl -s "https://api.github.com/repos/rs/curlie/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux_amd64.tar.gz' | head -n 1)
-curl -L "$CURLIE_URL" | tar xz -C /tmp
-mv /tmp/curlie /usr/bin/curlie
-chmod +x /usr/bin/curlie
+CURLIE_URL=$(curl -s "https://api.github.com/repos/rs/curlie/releases/latest" | jq -r '.assets[]?.browser_download_url // empty' | grep -i 'linux_amd64.tar.gz' | head -n 1 || true)
+if [ -n "$CURLIE_URL" ]; then
+    curl -L "$CURLIE_URL" | tar xz -C /tmp
+    mv /tmp/curlie /usr/bin/curlie
+    chmod +x /usr/bin/curlie
+else
+    echo "WARNING: Failed to fetch curlie release URL. Skipping."
+fi
 
 echo ":: Installing walk..."
-WALK_URL=$(curl -s "https://api.github.com/repos/antonmedv/walk/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux_amd64' | head -n 1)
-curl -L "$WALK_URL" -o /usr/bin/walk
-chmod +x /usr/bin/walk
-
-echo ":: Installing satty..."
-SATTY_URL=$(curl -s "https://api.github.com/repos/gabm/Satty/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux-gnu.tar.gz' | head -n 1)
-curl -L "$SATTY_URL" | tar xz -C /tmp
-find /tmp -type f -name "satty" -exec mv {} /usr/bin/satty \;
-chmod +x /usr/bin/satty
-
-echo ":: Installing swww..."
-dnf5 install -y lz4 || true
-SWWW_URL=$(curl -s "https://api.github.com/repos/LGFae/swww/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux-x86_64.tar.lz4' | head -n 1)
-curl -L "$SWWW_URL" -o /tmp/swww.tar.lz4
-lz4 -d /tmp/swww.tar.lz4 /tmp/swww.tar || true
-tar -xf /tmp/swww.tar -C /tmp || true
-find /tmp -type f -name "swww" -exec mv {} /usr/bin/swww \; || true
-find /tmp -type f -name "swww-daemon" -exec mv {} /usr/bin/swww-daemon \; || true
-chmod +x /usr/bin/swww /usr/bin/swww-daemon || true
+WALK_URL=$(curl -s "https://api.github.com/repos/antonmedv/walk/releases/latest" | jq -r '.assets[]?.browser_download_url // empty' | grep -i 'linux_amd64' | head -n 1 || true)
+if [ -n "$WALK_URL" ]; then
+    curl -L "$WALK_URL" -o /usr/bin/walk
+    chmod +x /usr/bin/walk
+else
+    echo "WARNING: Failed to fetch walk release URL. Skipping."
+fi
 
 # --- Fonts ---
 
