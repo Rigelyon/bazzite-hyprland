@@ -214,7 +214,7 @@ fetch_github_release_url() {
 
     if [ -n "$tag" ] && [ "$tag" != "latest" ]; then
         local rel_path=""
-        rel_path=$(curl -sL "https://github.com/$repo/releases/expanded_assets/$tag" | grep -oE "/$repo/releases/download/[^\"]+" | grep -iE "$pattern" | head -n 1 || true)
+        rel_path=$(curl -sL "https://github.com/$repo/releases/expanded_assets/$tag" | grep -oE "/$repo/releases/download/[^\"'\\s>]+" | grep -iE "$pattern" | head -n 1 || true)
         if [ -n "$rel_path" ]; then
             echo "https://github.com$rel_path"
             return 0
@@ -224,23 +224,27 @@ fetch_github_release_url() {
         local repo_name_lower
         repo_name_lower=$(echo "$repo_name" | tr '[:upper:]' '[:lower:]')
 
-        for candidate in \
-            "${repo_name_lower}-${tag}-x86_64-unknown-linux-gnu.tar.gz" \
-            "${repo_name_lower}-${tag}-x86_64-unknown-linux-musl.tar.gz" \
-            "${repo_name_lower}-x86_64-unknown-linux-gnu.tar.gz" \
-            "${repo_name_lower}-${tag}-linux-amd64.tar.gz" \
-            "${repo_name_lower}-linux-amd64.tar.gz" \
-            "${repo_name}-${tag}-x86_64-unknown-linux-gnu.tar.gz" \
-            "${repo_name}-${tag}-x86_64-unknown-linux-musl.tar.gz" \
-            "${repo_name}-x86_64-unknown-linux-gnu.tar.gz" \
-            "${repo_name}-${tag}-linux-amd64.tar.gz" \
-            "${repo_name}-linux-amd64.tar.gz"
-        do
-            local test_url="https://github.com/$repo/releases/download/$tag/$candidate"
-            if curl -sIL -f "$test_url" >/dev/null 2>&1; then
-                echo "$test_url"
-                return 0
-            fi
+        for ext in "tar.lz4" "tar.gz" "tar.xz" "zip"; do
+            for candidate in \
+                "${repo_name_lower}-${tag}-x86_64-unknown-linux-gnu.${ext}" \
+                "${repo_name_lower}-${tag}-x86_64-unknown-linux-musl.${ext}" \
+                "${repo_name_lower}-x86_64-unknown-linux-gnu.${ext}" \
+                "${repo_name_lower}-x86_64-unknown-linux-musl.${ext}" \
+                "${repo_name_lower}-${tag}-linux-amd64.${ext}" \
+                "${repo_name_lower}-linux-amd64.${ext}" \
+                "${repo_name}-${tag}-x86_64-unknown-linux-gnu.${ext}" \
+                "${repo_name}-${tag}-x86_64-unknown-linux-musl.${ext}" \
+                "${repo_name}-x86_64-unknown-linux-gnu.${ext}" \
+                "${repo_name}-x86_64-unknown-linux-musl.${ext}" \
+                "${repo_name}-${tag}-linux-amd64.${ext}" \
+                "${repo_name}-linux-amd64.${ext}"
+            do
+                local test_url="https://github.com/$repo/releases/download/$tag/$candidate"
+                if curl -sIL -f "$test_url" >/dev/null 2>&1; then
+                    echo "$test_url"
+                    return 0
+                fi
+            done
         done
     fi
 
