@@ -148,9 +148,7 @@ APPLICATIONS=(
     noctalia
     pavucontrol
     python3-neovim
-    satty
     swappy
-    swww
     wlogout
     yazi
 )
@@ -199,13 +197,34 @@ dnf5 install -y \
 
 echo ":: Installing External RPM packages..."
 
+fetch_github_release_url() {
+    local repo=$1
+    local pattern=$2
+
+    # Attempt 1: GitHub REST API
+    local url
+    url=$(curl -s "https://api.github.com/repos/$repo/releases/latest" | jq -r '.assets[]?.browser_download_url // empty' | grep -iE "$pattern" | head -n 1 || true)
+
+    if [ -n "$url" ]; then
+        echo "$url"
+        return 0
+    fi
+
+    # Attempt 2: HTML scrape of latest release page (bypasses GitHub REST API rate limits)
+    local rel_path
+    rel_path=$(curl -sL "https://github.com/$repo/releases/latest" | grep -oE "/$repo/releases/download/[^\"]+" | grep -iE "$pattern" | head -n 1 || true)
+
+    if [ -n "$rel_path" ]; then
+        echo "https://github.com$rel_path"
+        return 0
+    fi
+
+    return 1
+}
+
 get_latest_github_rpm() {
     local repo=$1
-    curl -s "https://api.github.com/repos/$repo/releases/latest" | \
-    jq -r '.assets[]?.browser_download_url // empty' | \
-    grep -i '\.rpm$' | \
-    grep -iE 'amd64|x86_64|noarch' | \
-    head -n 1 || true
+    fetch_github_release_url "$repo" '\.rpm$' | grep -iE 'amd64|x86_64|noarch' | head -n 1 || true
 }
 
 GITHUB_RPMS=(
@@ -245,7 +264,7 @@ chmod +x /usr/bin/eza
 ln -sf /usr/bin/eza /usr/bin/exa
 
 echo ":: Installing curlie..."
-CURLIE_URL=$(curl -s "https://api.github.com/repos/rs/curlie/releases/latest" | jq -r '.assets[]?.browser_download_url // empty' | grep -i 'linux_amd64.tar.gz' | head -n 1 || true)
+CURLIE_URL=$(fetch_github_release_url "rs/curlie" "linux_amd64\.tar\.gz")
 if [ -n "$CURLIE_URL" ]; then
     curl -L "$CURLIE_URL" | tar xz -C /tmp
     mv /tmp/curlie /usr/bin/curlie
@@ -255,12 +274,41 @@ else
 fi
 
 echo ":: Installing walk..."
-WALK_URL=$(curl -s "https://api.github.com/repos/antonmedv/walk/releases/latest" | jq -r '.assets[]?.browser_download_url // empty' | grep -i 'linux_amd64' | head -n 1 || true)
+WALK_URL=$(fetch_github_release_url "antonmedv/walk" "linux_amd64")
 if [ -n "$WALK_URL" ]; then
     curl -L "$WALK_URL" -o /usr/bin/walk
     chmod +x /usr/bin/walk
 else
     echo "WARNING: Failed to fetch walk release URL. Skipping."
+fi
+
+echo ":: Installing satty..."
+SATTY_URL=$(fetch_github_release_url "gabm/Satty" "linux-gnu.*\.tar\.gz|x86_64.*\.tar\.gz|satty.*\.tar\.gz")
+if [ -n "$SATTY_URL" ]; then
+    curl -L "$SATTY_URL" | tar xz -C /tmp
+    find /tmp -type f -name "satty" -exec mv {} /usr/bin/satty \;
+    chmod +x /usr/bin/satty
+else
+    echo "WARNING: Failed to fetch satty release URL. Skipping."
+fi
+
+echo ":: Installing swww..."
+dnf5 install -y lz4 || true
+SWWW_URL=$(fetch_github_release_url "LGFae/swww" "linux-x86_64|x86_64.*unknown-linux|\.tar\.lz4|\.tar\.gz")
+if [ -n "$SWWW_URL" ]; then
+    rm -rf /tmp/swww*
+    curl -L "$SWWW_URL" -o /tmp/swww_archive
+    if file /tmp/swww_archive | grep -q "LZ4"; then
+        lz4 -d /tmp/swww_archive /tmp/swww.tar || true
+        tar -xf /tmp/swww.tar -C /tmp || true
+    else
+        tar -xzf /tmp/swww_archive -C /tmp || true
+    fi
+    find /tmp -type f -name "swww" -exec mv {} /usr/bin/swww \; || true
+    find /tmp -type f -name "swww-daemon" -exec mv {} /usr/bin/swww-daemon \; || true
+    chmod +x /usr/bin/swww /usr/bin/swww-daemon || true
+else
+    echo "WARNING: Failed to fetch swww release URL. Skipping."
 fi
 
 # --- Fonts ---
