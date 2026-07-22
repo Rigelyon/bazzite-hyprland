@@ -145,6 +145,7 @@ APPLICATIONS=(
     mpv
     neovim
     noctalia-shell
+    noctalia
     pavucontrol
     python3-neovim
     swappy
