@@ -15,6 +15,7 @@ COPR_REPOS=(
     "lihaohong/yazi"
     "dejan/lazygit"
     "atim/lazydocker"
+    "imput/helium"
 )
 
 echo ":: Configuring External Repositories..."
@@ -87,6 +88,7 @@ SYSTEM_UTILS=(
     glib2
     glow
     grim
+    helium-bin
     hyprland
     hyprland-guiutils
     hyprpicker
@@ -121,7 +123,6 @@ SYSTEM_UTILS=(
     wireplumber
     wl-clipboard
     wl-mirror
-    wlsunset
     xclip
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
@@ -144,12 +145,11 @@ APPLICATIONS=(
     libqalculate-devel
     mpv
     neovim
-    noctalia-shell
     noctalia
     pavucontrol
     python3-neovim
+    quickshell
     swappy
-    wlogout
     yazi
 )
 
@@ -322,24 +322,7 @@ else
     echo "WARNING: Failed to fetch satty release URL. Skipping."
 fi
 
-echo ":: Installing swww..."
-dnf5 install -y lz4 || true
-SWWW_URL=$(fetch_github_release_url "LGFae/swww" "linux-x86_64|x86_64.*unknown-linux|\.tar\.lz4|\.tar\.gz")
-if [ -n "$SWWW_URL" ]; then
-    rm -rf /tmp/swww*
-    curl -L "$SWWW_URL" -o /tmp/swww_archive
-    if file /tmp/swww_archive | grep -q "LZ4"; then
-        lz4 -d /tmp/swww_archive /tmp/swww.tar || true
-        tar -xf /tmp/swww.tar -C /tmp || true
-    else
-        tar -xzf /tmp/swww_archive -C /tmp || true
-    fi
-    find /tmp -type f -name "swww" -exec mv {} /usr/bin/swww \; || true
-    find /tmp -type f -name "swww-daemon" -exec mv {} /usr/bin/swww-daemon \; || true
-    chmod +x /usr/bin/swww /usr/bin/swww-daemon || true
-else
-    echo "WARNING: Failed to fetch swww release URL. Skipping."
-fi
+
 
 # --- Fonts ---
 
