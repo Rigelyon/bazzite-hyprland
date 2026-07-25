@@ -15,7 +15,6 @@ COPR_REPOS=(
     "lihaohong/yazi"
     "dejan/lazygit"
     "atim/lazydocker"
-    "imput/helium"
 )
 
 echo ":: Configuring External Repositories..."
@@ -81,7 +80,6 @@ SYSTEM_UTILS=(
     glib2
     glow
     grim
-    helium-bin
     hyprland
     hyprland-guiutils
     hyprpicker
