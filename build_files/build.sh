@@ -266,7 +266,7 @@ for repo in "${GITHUB_RPMS[@]}"; do
 done
 
 STATIC_RPMS=(
-    "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm"
+    "https://launchpad.net/veracrypt/trunk/1.26.29/+download/veracrypt-1.26.29-Fedora-44-x86_64.rpm"
 )
 
 echo "Installing static external RPMs..."
