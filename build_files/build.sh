@@ -68,6 +68,7 @@ SYSTEM_UTILS=(
     cliphist
     cronie
     ddcutil
+    dex-autostart
     dua-cli
     duf
     evolution-data-server
