@@ -149,8 +149,12 @@ FONTS=(
     dejavu-sans-fonts
     dejavu-sans-mono-fonts
     fontawesome-fonts-all
+    gdouros-symbola-fonts
     google-noto-color-emoji-fonts
     google-noto-emoji-fonts
+    google-noto-sans-canadian-aboriginal-vf-fonts
+    google-noto-sans-symbols-2-fonts
+    google-noto-sans-symbols-vf-fonts
 )
 
 DEVELOPMENT=(
@@ -360,11 +364,64 @@ wget -qO /tmp/adwaita_font.zip https://github.com/ryanoasis/nerd-fonts/releases/
 unzip -o /tmp/adwaita_font.zip -d "$FONT_DIR"
 rm /tmp/adwaita_font.zip
 
+echo ":: Installing Extra Noto Fonts (Egyptian Hieroglyphs)..."
+FONT_DIR="/usr/share/fonts/noto-extra"
+mkdir -p "$FONT_DIR"
+curl -sL "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansEgyptianHieroglyphs/NotoSansEgyptianHieroglyphs-Regular.ttf" -o "$FONT_DIR/NotoSansEgyptianHieroglyphs-Regular.ttf"
+
 # --- 5. Post-Install Configuration ---
 
 echo ":: Configuring system symlinks and permissions..."
 ln -sf /usr/bin/sassc /usr/bin/sass
 chmod -R a+r /usr/lib/python*/site-packages/
+
+echo ":: Configuring font fallback rules..."
+mkdir -p /etc/fonts/conf.d
+cat << 'EOF' > /etc/fonts/conf.d/50-noto-fallback.conf
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <alias>
+    <family>sans-serif</family>
+    <prefer>
+      <family>Noto Sans</family>
+      <family>Noto Color Emoji</family>
+      <family>Noto Sans Symbols 2</family>
+      <family>Noto Sans Symbols</family>
+      <family>Noto Sans Canadian Aboriginal</family>
+      <family>Noto Sans Egyptian Hieroglyphs</family>
+      <family>DejaVu Sans</family>
+    </prefer>
+  </alias>
+
+  <alias>
+    <family>serif</family>
+    <prefer>
+      <family>Noto Serif</family>
+      <family>Noto Color Emoji</family>
+      <family>Noto Sans Symbols 2</family>
+      <family>Noto Sans Symbols</family>
+      <family>Noto Sans Canadian Aboriginal</family>
+      <family>Noto Sans Egyptian Hieroglyphs</family>
+      <family>DejaVu Serif</family>
+    </prefer>
+  </alias>
+
+  <alias>
+    <family>monospace</family>
+    <prefer>
+      <family>Noto Sans Mono</family>
+      <family>Noto Color Emoji</family>
+      <family>Noto Sans Symbols 2</family>
+      <family>Noto Sans Symbols</family>
+      <family>Noto Sans Canadian Aboriginal</family>
+      <family>Noto Sans Egyptian Hieroglyphs</family>
+      <family>DejaVu Sans Mono</family>
+    </prefer>
+  </alias>
+</fontconfig>
+EOF
+
 fc-cache -fv
 
 echo ":: Enabling Systemd Units..."
