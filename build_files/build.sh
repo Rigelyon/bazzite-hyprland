@@ -67,7 +67,6 @@ SYSTEM_UTILS=(
     cava
     cliphist
     cronie
-    ddcutil
     dex-autostart
     dua-cli
     duf
@@ -112,7 +111,6 @@ SYSTEM_UTILS=(
     wev
     wf-recorder
     wget
-    wireplumber
     wl-clipboard
     wl-mirror
     xclip
