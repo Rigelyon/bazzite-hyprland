@@ -59,7 +59,6 @@ SYSTEM_UTILS=(
     accountsservice
     at
     bat
-    bluez
     bluez-tools
     brightnessctl
     btop
