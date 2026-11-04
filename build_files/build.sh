@@ -90,6 +90,7 @@ SYSTEM_UTILS=(
     lm_sensors
     lsd
     micro
+    netcat
     pandoc
     pandoc-cli
     pipewire-utils
